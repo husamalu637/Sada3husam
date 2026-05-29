@@ -6,179 +6,161 @@
     <title>صدى الطفولة | غرانديزر</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #00d2ff; /* اللون السماوي */
-            --accent: #ff9800;  /* اللون البرتقالي للتمييز */
-            --bg: #0b0f19;
-            --card: #161e2e;
-        }
-
+        :root { --primary: #00d2ff; --accent: #ff9800; --bg: #0b0f19; --card: #161e2e; }
+        * { user-select: none; }
         body {
-            background-color: var(--bg);
-            color: white;
-            font-family: 'Cairo', sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            background-color: var(--bg); color: white; font-family: 'Cairo', sans-serif;
+            margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center;
+            overflow-x: hidden; position: relative;
         }
-
         header {
-            width: 100%;
-            background: linear-gradient(135deg, #00d2ff, #3a7bd5); /* تدرج سماوي */
-            padding: 15px 0;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            width: 100%; background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+            padding: 40px 0; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-
-        .main-container {
-            max-width: 900px;
-            width: 95%;
-            margin: 10px auto;
-            text-align: center;
+        header h1 { margin: 0; font-size: 2.2rem; }
+        header p { margin: 5px 0 0; font-size: 1rem; }
+        .banner-top, .banner-bottom {
+            width: 100%; text-align: center; background: #0a0e15; padding: 20px 0;
+            margin: 0 auto; display: flex; justify-content: center; align-items: center;
+            border-radius: 12px; overflow-x: auto;
         }
-
+        .banner-top { max-width: 900px; margin-top: 20px; margin-bottom: 10px; }
+        .banner-bottom { max-width: 900px; margin-top: 30px; margin-bottom: 20px; }
+        .main-container { max-width: 900px; width: 95%; margin: 0 auto; text-align: center; }
+        .video-wrapper-outer { position: relative; z-index: 1; }
         .video-display-area {
-            background: #000;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 3px solid var(--primary); /* إطار سماوي */
-            margin: 15px 0;
-            display: none;
+            background: #000; border-radius: 20px; overflow: hidden; border: 3px solid var(--primary);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.2); margin-bottom: 30px; display: none; position: relative;
         }
-
         .responsive-iframe {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
+            position: relative; width: 100%; aspect-ratio: 16 / 9;
+            background: #000; overflow: hidden;
         }
-
+        /* رفع المشغل الأساسي - نفس الإعدادات السابقة */
         .responsive-iframe iframe {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+            position: absolute; top: -160px; left: 0; width: 100%; height: calc(100% + 160px);
+            border: 0; overflow: hidden; pointer-events: auto;
         }
-
         .episodes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
-            gap: 10px;
-            background: var(--card);
-            padding: 20px;
-            border-radius: 20px;
-            margin-top: 10px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 15px; background: var(--card); padding: 25px;
+            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-
         .ep-btn {
-            background: #252f44;
-            color: white;
-            border: none;
-            padding: 15px 0;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
+            background: #252f44; color: white; border: 2px solid transparent;
+            padding: 15px 0; border-radius: 12px; font-size: 1.2rem;
+            font-weight: bold; cursor: pointer; transition: 0.3s;
         }
-
-        .ep-btn:hover { background: var(--primary); color: black; } /* حومة سماوية */
-        .ep-btn.active { background: var(--accent); color: black; } /* زر نشط برتقالي */
-
-        h2, h3 { margin: 10px 0; }
+        .ep-btn:hover { background: var(--primary); transform: scale(1.1); border-color: white; }
+        .ep-btn.active { background: var(--accent); color: black; box-shadow: 0 0 15px var(--accent); }
+        .info-text { margin-top: 20px; color: var(--primary); font-size: 1.1rem; }
+        footer { margin-top: 50px; padding: 20px; opacity: 0.4; font-size: 0.8rem; }
+        h2#status-msg { margin-top: 10px; }
+        @media (max-width: 600px) {
+            .episodes-grid { grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 10px; padding: 15px; }
+            .ep-btn { padding: 10px 0; font-size: 1rem; }
+        }
     </style>
 </head>
-<body onload="loadEpisodes()">
+<body>
 
 <header>
-    <h1>صدى الطفولة</h1>
+    <h1>🎬 صدى الطفولة</h1>
+    <p>اختر رقم الحلقة وابدأ المشاهدة فوراً</p>
 </header>
 
-<div class="main-container">
-    <h2 style="color: var(--primary);">مغامرات الفضاء: غرانديزر</h2>
-
-    <div class="video-display-area" id="player-section">
-        <div class="responsive-iframe">
-            <iframe id="main-player" src="" allowfullscreen></iframe>
-        </div>
-    </div>
-
-    <h3 id="ep-indicator">اختر رقم الحلقة للمشاهدة:</h3>
-    
-    <div class="episodes-grid" id="episodes-list"></div>
+<!-- بنر أعلى الموقع -->
+<div class="banner-top">
+    <script>
+        atOptions = { 'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+    </script>
+    <script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script>
 </div>
 
+<div class="main-container">
+    <div class="video-wrapper-outer">
+        <div id="videoPlayer" class="video-display-area">
+            <div class="responsive-iframe">
+                <iframe id="mainIframe" src="" allowfullscreen scrolling="no"></iframe>
+            </div>
+            <div id="episodeTitle" style="padding: 10px; background: var(--card); font-weight: bold;"></div>
+        </div>
+    </div>
+    <h2 id="status-msg">اضغط على رقم الحلقة للمشاهدة:</h2>
+    <div class="episodes-grid" id="buttonsGrid"></div>
+    <p class="info-text">جميع حلقات غرانديزر (74 حلقة) متوفرة الآن بجودة عالية</p>
+</div>
+
+<!-- بنر أسفل الموقع -->
+<div class="banner-bottom">
+    <script>
+        atOptions = { 'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+    </script>
+    <script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script>
+</div>
+
+<footer>جميع الحقوق محفوظة - صدى الطفولة &copy; 2026</footer>
+
 <script>
-    const adLink = "https://www.profitablecpmratenetwork.com/e41dj2h87?key=bef514b5ca3fa945e7a3b60e4a9ef21a";
-    
-    // تم ترتيب الروابط من الحلقة 1 إلى 40
-    const grendizerLinks = [
-        "https://meyon.com.ye/videos/embed/da6d2b7d-200e-4e53-983a-fc2f8da48ccd", // 1
-        "https://meyon.com.ye/videos/embed/2d126943-1c80-46ab-b0e7-233a5a4576e7", // 2
-        "https://meyon.com.ye/videos/embed/80a8e40a-c789-4394-8c0d-1a1dcdab6b70", // 3
-        "https://meyon.com.ye/videos/embed/fe51e206-1e7e-4959-bb1c-3291e3e7a70d", // 4
-        "https://meyon.com.ye/videos/embed/d8ceb52a-f0d2-4cf6-aa5c-85e18a651816", // 5
-        "https://meyon.com.ye/videos/embed/0ccbccb1-6f4e-472b-aa23-d99f99bd41b4", // 6
-        "https://meyon.com.ye/videos/embed/167e0d17-ce04-4372-be01-ab683f064bec", // 7
-        "https://meyon.com.ye/videos/embed/6430e0ac-f6ef-4227-bcbf-577c9c9c3661", // 8
-        "https://meyon.com.ye/videos/embed/a743c045-75d0-4e2f-a618-7547c3336fbb", // 9
-        "https://meyon.com.ye/videos/embed/c9e63a4a-2374-4066-91dc-14695fa142b4", // 10
-        "https://meyon.com.ye/videos/embed/413a43ea-7d5e-46e3-9df1-8411958a77b8", // 11
-        "https://meyon.com.ye/videos/embed/56e0f3eb-2cd4-4a34-8d32-96df83898dc8", // 12
-        "https://meyon.com.ye/videos/embed/53cf87d5-098c-46b1-ac29-94600e2e2be6", // 13
-        "https://meyon.com.ye/videos/embed/fa977d8a-8552-4df8-813a-2c8f4a13c96a", // 14
-        "https://meyon.com.ye/videos/embed/078531cb-5136-4c8e-93b5-7c2bf694a760", // 15
-        "https://meyon.com.ye/videos/embed/c2ace282-62bc-48b3-b916-93d2e3426ff2", // 16
-        "https://meyon.com.ye/videos/embed/13498cf0-4f19-49b2-80a7-bcb3220dac6f", // 17
-        "https://meyon.com.ye/videos/embed/78527584-c106-4457-8be0-8c652c473112", // 18
-        "https://meyon.com.ye/videos/embed/6ccf9c3e-05bd-4d63-9b51-4c06be381cea", // 19
-        "https://meyon.com.ye/videos/embed/b3f4312f-305b-49f2-bd6f-b5641737c514", // 20
-        "https://meyon.com.ye/videos/embed/f806f2d6-b03d-47ec-847f-3612a3b50235", // 21
-        "https://meyon.com.ye/videos/embed/ac2b7d82-ec77-470a-9cbe-62153c728b91", // 22
-        "https://meyon.com.ye/videos/embed/1cc75fcf-89f4-499b-813a-30ec1e6799ca", // 23
-        "https://meyon.com.ye/videos/embed/91710de5-c971-424d-a7e4-71627cc43e4c", // 24
-        "https://meyon.com.ye/videos/embed/ec50e5ba-c24f-46b5-8d8d-b2b3126fc4c5", // 25
-        "https://meyon.com.ye/videos/embed/d3bd3d4b-1313-4cf7-894d-2bb68a285aab", // 26
-        "https://meyon.com.ye/videos/embed/5173b983-42f6-4b31-8999-044d00a81be5", // 27
-        "https://meyon.com.ye/videos/embed/6ff3f69b-783b-48ac-b83a-5aa17d7ab7d7", // 28
-        "https://meyon.com.ye/videos/embed/d3419308-498c-4cf2-96a1-bf6bf75505d0", // 29
-        "https://meyon.com.ye/videos/embed/2b0beabb-d5d9-4da4-b6b3-b5ae21e9a2d4", // 30
-        "https://meyon.com.ye/videos/embed/8e176e32-718b-446b-bd71-cf6999690927", // 31
-        "https://meyon.com.ye/videos/embed/2e0dad42-ee84-4619-8883-1e016c3935e0", // 32
-        "https://meyon.com.ye/videos/embed/31b9029b-2396-4012-8c4a-4041de00ae37", // 33
-        "https://meyon.com.ye/videos/embed/7da7fb38-15d7-4a3b-9c7f-658d43623206", // 34
-        "https://meyon.com.ye/videos/embed/8470c852-bc1a-4910-98ac-1c2c0485c784", // 35
-        "https://meyon.com.ye/videos/embed/9c46ba45-e6c3-4b7c-b822-fd9430e9a3cf", // 36
-        "https://meyon.com.ye/videos/embed/848cb842-539c-4e12-b976-34fd74712ebf", // 37
-        "https://meyon.com.ye/videos/embed/1fa2b691-203f-4af9-b857-2d077ddd43f2", // 38
-        "https://meyon.com.ye/videos/embed/672a724d-270d-4d39-97ba-0f3bc9422f1f", // 39
-        "https://meyon.com.ye/videos/embed/f7ac0408-ee66-46f9-a99d-64ffc3bec82e"  // 40
-    ];
+    // إعدادات مسلسل غرانديزر - 74 حلقة (حسب القائمة في الصفحة)
+    const totalEpisodes = 74;
+    const episodeLinks = [];
 
-    function loadEpisodes() {
-        const list = document.getElementById('episodes-list');
-        list.innerHTML = '';
-
-        grendizerLinks.forEach((link, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'ep-btn';
-            btn.innerText = index + 1;
-            btn.onclick = () => {
-                // فتح الإعلان في نافذة جديدة
-                window.open(adLink, '_blank');
-
-                // عرض وتحديث مشغل الفيديو
-                document.getElementById('player-section').style.display = 'block';
-                document.getElementById('main-player').src = link;
-                document.getElementById('ep-indicator').innerText = "أنت تشاهد الآن الحلقة: " + (index + 1);
-                
-                // تمييز الزر النشط
-                document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                // التمرير التلقائي للفيديو
-                document.getElementById('player-section').scrollIntoView({ behavior: 'smooth' });
-            };
-            list.appendChild(btn);
-        });
+    // الحلقة 1 = 56، الحلقة 74 = 129
+    for (let i = 0; i < totalEpisodes; i++) {
+        let episodeId = 56 + i;
+        episodeLinks.push(`https://cartoony.net/watch/21/${episodeId}`);
     }
+
+    const grid = document.getElementById('buttonsGrid');
+    const player = document.getElementById('videoPlayer');
+    const iframe = document.getElementById('mainIframe');
+    const titleDisp = document.getElementById('episodeTitle');
+    
+    let scrollPosition = 0;
+    let bodyStylePosition = '';
+    let bodyStyleTop = '';
+
+    function lockPage() {
+        scrollPosition = window.scrollY;
+        bodyStylePosition = document.body.style.position || '';
+        bodyStyleTop = document.body.style.top || '';
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollPosition}px`;
+        document.body.style.width = '100%';
+    }
+
+    function unlockPage() {
+        document.body.style.position = bodyStylePosition;
+        document.body.style.top = bodyStyleTop;
+        document.body.style.width = '';
+        window.scrollTo(0, scrollPosition);
+    }
+
+    episodeLinks.forEach((link, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'ep-btn';
+        btn.innerText = index + 1;
+        btn.onclick = function() {
+            lockPage();
+            player.style.display = 'block';
+            iframe.src = link;
+            titleDisp.innerText = "أنت تشاهد الآن: غرانديزر - الحلقة " + (index + 1);
+            document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            setTimeout(() => { unlockPage(); }, 500);
+        };
+        grid.appendChild(btn);
+    });
+    
+    iframe.addEventListener('load', function() {
+        try {
+            iframe.contentWindow.addEventListener('scroll', function(e) {
+                iframe.contentWindow.scrollTo(0, 0);
+            });
+        } catch(e) { /* تجاهل أخطاء CORS */ }
+    });
 </script>
+
 </body>
 </html>
