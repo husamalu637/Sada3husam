@@ -3,45 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صدى الطفولة | غرانديزر</title>
+    <title>صدى الطفولة | فادي بائع الحليب</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #00d2ff; --accent: #ff9800; --bg: #0b0f19; --card: #161e2e; }
-        * { user-select: none; }
+        * { user-select: none; box-sizing: border-box; }
         body { background-color: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; position: relative; }
-        header { width: 100%; background: linear-gradient(135deg, #00d2ff, #3a7bd5); padding: 40px 0; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        header { width: 100%; background: linear-gradient(135deg, #00d2ff, #3a7bd5); padding: 30px 0; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        
         .banner-top, .banner-bottom { width: 100%; text-align: center; background: #0a0e15; padding: 20px 0; margin: 0 auto; display: flex; justify-content: center; align-items: center; border-radius: 12px; overflow-x: auto; }
         .banner-top { max-width: 900px; margin-top: 20px; margin-bottom: 10px; }
         .banner-bottom { max-width: 900px; margin-top: 30px; margin-bottom: 20px; }
+        
         .main-container { max-width: 900px; width: 95%; margin: 0 auto; text-align: center; }
+        
+        .back-home-btn { background: #252f44; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-family: 'Cairo', sans-serif; font-weight: bold; cursor: pointer; margin: 20px 0; transition: 0.3s; display: inline-flex; align-items: center; gap: 5px; text-decoration: none; }
+        .back-home-btn:hover { background: var(--primary); color: #000; }
+
         .video-wrapper-outer { position: relative; z-index: 1; }
         .video-display-area { background: #000; border-radius: 20px; overflow: hidden; border: 3px solid var(--primary); box-shadow: 0 0 30px rgba(0, 210, 255, 0.2); margin-bottom: 30px; display: none; position: relative; }
         .responsive-iframe { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; overflow: hidden; }
-        .responsive-iframe iframe { position: absolute; top: -160px; left: 0; width: 100%; height: calc(100% + 160px); border: 0; overflow: hidden; pointer-events: auto; }
+        .responsive-iframe iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; overflow: hidden; pointer-events: auto; }
+        
         .episodes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 15px; background: var(--card); padding: 25px; border-radius: 20px; }
-        .ep-btn { background: #252f44; color: white; border: 2px solid transparent; padding: 15px 0; border-radius: 12px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .ep-btn:hover { background: var(--primary); transform: scale(1.1); border-color: white; }
+        .ep-btn { background: #252f44; color: white; border: 2px solid transparent; padding: 15px 0; border-radius: 12px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; font-family: 'Cairo', sans-serif; }
+        .ep-btn:hover { background: var(--primary); transform: scale(1.1); border-color: white; color: #000; }
         .ep-btn.active { background: var(--accent); color: black; box-shadow: 0 0 15px var(--accent); }
+
         .info-text { margin-top: 20px; color: var(--primary); }
         footer { margin-top: 50px; padding: 20px; opacity: 0.4; text-align: center; }
-        @media (max-width: 600px) { .episodes-grid { grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 10px; padding: 15px; } .ep-btn { padding: 10px 0; font-size: 1rem; } }
+        @media (max-width: 600px) { .episodes-grid { grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 10px; padding: 15px; } .ep-btn { padding: 12px 0; font-size: 1.1rem; } }
     </style>
 </head>
 <body>
-<header><h1>🎬 صدى الطفولة</h1><p>اختر رقم الحلقة وابدأ المشاهدة فوراً</p></header>
-<div class="banner-top"><script> atOptions = { 'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} }; </script><script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script></div>
-<div class="main-container"><div class="video-wrapper-outer"><div id="videoPlayer" class="video-display-area"><div class="responsive-iframe"><iframe id="mainIframe" src="" allowfullscreen scrolling="no"></iframe></div><div id="episodeTitle" style="padding: 10px; background: var(--card); font-weight: bold;"></div></div></div><h2>اضغط على رقم الحلقة للمشاهدة:</h2><div class="episodes-grid" id="buttonsGrid"></div><p class="info-text">جميع حلقات غرانديزر (74 حلقة) متوفرة الآن بجودة عالية</p></div>
-<div class="banner-bottom"><script> atOptions = { 'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} }; </script><script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script></div>
+
+<header>
+    <h1>🎬 مسلسل فادي بائع الحليب</h1>
+    <p>اختر رقم الحلقة وابدأ المشاهدة فوراً</p>
+</header>
+
+<!-- إعلان البنر العلوي -->
+<div class="banner-top">
+    <script> atOptions = { 'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} }; </script>
+    <script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script>
+</div>
+
+<div class="main-container">
+    <a href="https://husamalu637.github.io/Sasuke/" class="back-home-btn">⬅ العودة إلى الرئيسية</a>
+
+    <div class="video-wrapper-outer">
+        <div id="videoPlayer" class="video-display-area">
+            <div class="responsive-iframe"><iframe id="mainIframe" src="" allowfullscreen allow="autoplay; encrypted-media" scrolling="no"></iframe></div>
+            <div id="episodeTitle" style="padding: 10px; background: var(--card); font-weight: bold;"></div>
+        </div>
+    </div>
+
+    <h2>اضغط على رقم الحلقة للمشاهدة:</h2>
+    <div class="episodes-grid" id="buttonsGrid"></div>
+    <p class="info-text">جميع حلقات فادي بائع الحليب (من 1 إلى 51) بالإضافة إلى الشارة متوفرة وتعمل بكفاءة عالية</p>
+</div>
+
+<!-- إعلان البنر السفلي -->
+<div class="banner-bottom">
+    <script> atOptions = { 'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} }; </script>
+    <script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script>
+</div>
+
 <footer>جميع الحقوق محفوظة - صدى الطفولة &copy; 2026</footer>
+
 <script>
-    const adLink = "https://www.profitablecpmratenetwork.com/e41dj2h87?key=bef514b5ca3fa945e7a3b60e4a9ef21a";
-    const totalEpisodes = 74;
-    const episodeLinks = []; for (let i = 0; i < totalEpisodes; i++) { episodeLinks.push(`https://cartoony.net/watch/21/${56 + i}`); }
-    const grid = document.getElementById('buttonsGrid'); const player = document.getElementById('videoPlayer'); const iframe = document.getElementById('mainIframe'); const titleDisp = document.getElementById('episodeTitle');
+    const popupAdLink = "https://www.profitablecpmratenetwork.com/e41dj2h87?key=bef514b5ca3fa945e7a3b60e4a9ef21a";
+
+    // روابط حلقات فادي بائع الحليب (من 1 إلى 51) + الشارة (52)
+    const episodeLinks = [
+        "https://www.youtube.com/embed/Y8ZZE4247ZY", // 1
+        "https://www.youtube.com/embed/q122KPH25gQ", // 2
+        "https://www.youtube.com/embed/i-Ah0Txmd0Y", // 3
+        "https://www.youtube.com/embed/MF8q-5kuBbo", // 4
+        "https://www.youtube.com/embed/_c_JxVIJi9I", // 5
+        "https://www.youtube.com/embed/29O8HZkCQVc", // 6
+        "https://www.youtube.com/embed/JePxsb59xIE", // 7
+        "https://www.youtube.com/embed/qKopOksvaVE", // 8
+        "https://www.youtube.com/embed/v0W5Icr6sMk", // 9
+        "https://www.youtube.com/embed/yF4kHLZoO_8", // 10
+        "https://www.youtube.com/embed/SyAkQe-p7LE", // 11
+        "https://www.youtube.com/embed/dZVAogVX0U8", // 12
+        "https://www.youtube.com/embed/QYvtgW9NtSI", // 13
+        "https://www.youtube.com/embed/zB_Y8lINBIo", // 14
+        "https://www.youtube.com/embed/pZmAu8FM_Lc", // 15
+        "https://www.youtube.com/embed/5wEoSwgXQ84", // 16
+        "https://www.youtube.com/embed/2owdIa4usUs", // 17
+        "https://www.youtube.com/embed/X35FLFFiptg", // 18
+        "https://www.youtube.com/embed/8rwMhuUtpOY", // 19
+        "https://www.youtube.com/embed/7NV0EJau5f4", // 20
+        "https://www.youtube.com/embed/dCH8kfDAf54", // 21
+        "https://www.youtube.com/embed/GqN5_OjxRRY", // 22
+        "https://www.youtube.com/embed/OzJDfOeaCIg", // 23
+        "https://www.youtube.com/embed/Bu3GhAYDwvc", // 24
+        "https://www.youtube.com/embed/vAhbsY9G5oI", // 25
+        "https://www.youtube.com/embed/csxJiIEy5ao", // 26
+        "https://www.youtube.com/embed/bRWqLl7pfd8", // 27
+        "https://www.youtube.com/embed/3ivtzXWCga4", // 28
+        "https://www.youtube.com/embed/s8WJLpO7gWg", // 29
+        "https://www.youtube.com/embed/dab89G91hNc", // 30
+        "https://www.youtube.com/embed/g9lIKtYKPew", // 31
+        "https://www.youtube.com/embed/UYwcdkVJNpQ", // 32
+        "https://www.youtube.com/embed/vbZegEMkZsE", // 33
+        "https://www.youtube.com/embed/JHWHJrERWxs", // 34
+        "https://www.youtube.com/embed/rZKMkAklOgc", // 35
+        "https://www.youtube.com/embed/YuKvno9KIw8", // 36
+        "https://www.youtube.com/embed/LL1Q9H9LaOs", // 37
+        "https://www.youtube.com/embed/t-ZeCEpcSAM", // 38
+        "https://www.youtube.com/embed/ttpVzXdhlK4", // 39
+        "https://www.youtube.com/embed/n9TCZDsxSxI", // 40
+        "https://www.youtube.com/embed/_v_g74RO0WI", // 41
+        "https://www.youtube.com/embed/AVoEwxGj_tI", // 42
+        "https://www.youtube.com/embed/lhhZ9jx4rIo", // 43
+        "https://www.youtube.com/embed/u0PvSBmRMBY", // 44
+        "https://www.youtube.com/embed/wfjfcqUPBTM", // 45
+        "https://www.youtube.com/embed/U7M6lW-pwEE", // 46
+        "https://www.youtube.com/embed/zx07wuyQoQ4", // 47
+        "https://www.youtube.com/embed/f0kiJdUUCbA", // 48
+        "https://www.youtube.com/embed/Q1jv2VYEeLY", // 49
+        "https://www.youtube.com/embed/3KUqtqs1510", // 50
+        "https://www.youtube.com/embed/1VB--30Qc-M", // 51 (الاخيرة)
+        "https://www.youtube.com/embed/bO1dnOy6la0"  // شارة البداية
+    ];
+
+    const grid = document.getElementById('buttonsGrid'); 
+    const player = document.getElementById('videoPlayer'); 
+    const iframe = document.getElementById('mainIframe'); 
+    const titleDisp = document.getElementById('episodeTitle');
+    
     let scrollPosition = 0;
     function lockPage() { scrollPosition = window.scrollY; document.body.style.position = 'fixed'; document.body.style.top = `-${scrollPosition}px`; document.body.style.width = '100%'; }
     function unlockPage() { document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = ''; window.scrollTo(0, scrollPosition); }
-    episodeLinks.forEach((link, index) => { const btn = document.createElement('button'); btn.className = 'ep-btn'; btn.innerText = index + 1; btn.onclick = function() { window.open(adLink, '_blank'); lockPage(); player.style.display = 'block'; iframe.src = link; titleDisp.innerText = "أنت تشاهد الآن: غرانديزر - الحلقة " + (index + 1); document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); setTimeout(() => { unlockPage(); }, 500); }; grid.appendChild(btn); });
+
+    episodeLinks.forEach((link, index) => { 
+        const btn = document.createElement('button'); 
+        btn.className = 'ep-btn'; 
+        
+        let epNum = index + 1;
+        if (epNum === 52) {
+            btn.innerText = "شارة";
+        } else {
+            btn.innerText = epNum; 
+        }
+        
+        btn.onclick = function() { 
+            window.open(popupAdLink, '_blank');
+            
+            lockPage(); 
+            player.style.display = 'block'; 
+            iframe.src = link; 
+            
+            if (epNum === 52) {
+                titleDisp.innerText = "أنت تشاهد الآن: شارة مسلسل بائع الحليب";
+            } else {
+                titleDisp.innerText = "أنت تشاهد الآن: فادي بائع الحليب - الحلقة " + epNum; 
+            }
+            
+            document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active')); 
+            btn.classList.add('active'); 
+            
+            setTimeout(() => { unlockPage(); }, 500); 
+        }; 
+        grid.appendChild(btn); 
+    });
 </script>
 </body>
 </html>
