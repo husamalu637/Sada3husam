@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>صدى الطفولة | فادي بائع الحليب</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
+    
+    <!-- كود إعلانات البوب أب الأساسي للشبكة -->
+    <script src="https://pl29266276.profitableratecpmnetwork.com/37/9c/25/379c25c3dc70386924751e11786f4647.js"></script>
+
     <style>
         :root { --primary: #00d2ff; --accent: #ff9800; --bg: #0b0f19; --card: #161e2e; }
         * { user-select: none; box-sizing: border-box; }
-        body { background-color: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; position: relative; }
+        body { background-color: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; position: relative; scroll-behavior: smooth; }
         header { width: 100%; background: linear-gradient(135deg, #00d2ff, #3a7bd5); padding: 30px 0; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
         
         .banner-top, .banner-bottom { width: 100%; text-align: center; background: #0a0e15; padding: 20px 0; margin: 0 auto; display: flex; justify-content: center; align-items: center; border-radius: 12px; overflow-x: auto; }
@@ -20,26 +24,27 @@
         .back-home-btn { background: #252f44; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-family: 'Cairo', sans-serif; font-weight: bold; cursor: pointer; margin: 20px 0; transition: 0.3s; display: inline-flex; align-items: center; gap: 5px; text-decoration: none; }
         .back-home-btn:hover { background: var(--primary); color: #000; }
 
-        .video-wrapper-outer { position: relative; z-index: 1; }
-        .video-display-area { background: #000; border-radius: 20px; overflow: hidden; border: 3px solid var(--primary); box-shadow: 0 0 30px rgba(0, 210, 255, 0.2); margin-bottom: 30px; display: none; position: relative; }
+        .video-wrapper-outer { position: relative; z-index: 1; width: 100%; }
+        .video-display-area { background: #000; border-radius: 20px; overflow: hidden; border: 3px solid var(--primary); box-shadow: 0 0 30px rgba(0, 210, 255, 0.2); margin-bottom: 30px; display: none; position: relative; scroll-margin-top: 20px; }
         .responsive-iframe { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; overflow: hidden; }
         .responsive-iframe iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; overflow: hidden; pointer-events: auto; }
         
         .episodes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 15px; background: var(--card); padding: 25px; border-radius: 20px; }
-        .ep-btn { background: #252f44; color: white; border: 2px solid transparent; padding: 15px 0; border-radius: 12px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; font-family: 'Cairo', sans-serif; }
+        .ep-btn { background: #252f44; color: white; border: 2px solid transparent; padding: 15px 0; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; font-family: 'Cairo', sans-serif; }
         .ep-btn:hover { background: var(--primary); transform: scale(1.1); border-color: white; color: #000; }
         .ep-btn.active { background: var(--accent); color: black; box-shadow: 0 0 15px var(--accent); }
+        .ep-btn.badge-btn { font-size: 0.95rem; background: #3a2544; border-color: var(--accent); }
 
         .info-text { margin-top: 20px; color: var(--primary); }
         footer { margin-top: 50px; padding: 20px; opacity: 0.4; text-align: center; }
-        @media (max-width: 600px) { .episodes-grid { grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 10px; padding: 15px; } .ep-btn { padding: 12px 0; font-size: 1.1rem; } }
+        @media (max-width: 600px) { .episodes-grid { grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 10px; padding: 15px; } .ep-btn { padding: 12px 0; font-size: 1rem; } }
     </style>
 </head>
 <body>
 
 <header>
     <h1>🎬 مسلسل فادي بائع الحليب</h1>
-    <p>اختر رقم الحلقة وابدأ المشاهدة فوراً</p>
+    <p>اختر رقم الحلقة أو الشارة وابدأ المشاهدة فوراً</p>
 </header>
 
 <!-- إعلان البنر العلوي -->
@@ -53,7 +58,7 @@
 
     <div class="video-wrapper-outer">
         <div id="videoPlayer" class="video-display-area">
-            <div class="responsive-iframe"><iframe id="mainIframe" src="" allowfullscreen allow="autoplay; encrypted-media" scrolling="no"></iframe></div>
+            <div class="responsive-iframe"><iframe id="mainIframe" src="" allowfullscreen allow="autoplay; encrypted-media" scrolling="no" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe></div>
             <div id="episodeTitle" style="padding: 10px; background: var(--card); font-weight: bold;"></div>
         </div>
     </div>
@@ -146,6 +151,7 @@
         let epNum = index + 1;
         if (epNum === 52) {
             btn.innerText = "شارة";
+            btn.classList.add('badge-btn');
         } else {
             btn.innerText = epNum; 
         }
@@ -158,7 +164,7 @@
             iframe.src = link; 
             
             if (epNum === 52) {
-                titleDisp.innerText = "أنت تشاهد الآن: شارة مسلسل بائع الحليب";
+                titleDisp.innerText = "أنت تشاهد الآن: شارة مسلسل فادي بائع الحليب";
             } else {
                 titleDisp.innerText = "أنت تشاهد الآن: فادي بائع الحليب - الحلقة " + epNum; 
             }
@@ -166,6 +172,8 @@
             document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active')); 
             btn.classList.add('active'); 
             
+            player.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
             setTimeout(() => { unlockPage(); }, 500); 
         }; 
         grid.appendChild(btn); 
